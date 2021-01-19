@@ -9,7 +9,8 @@ num_labels = size(Theta2, 1);
 
 % You need to return the following variables correctly 
 p = zeros(size(X, 1), 1);
-
+%Adding ones to the X
+X = [ones(size(X,1),1) X];
 % ====================== YOUR CODE HERE ======================
 % Instructions: Complete the following code to make predictions using
 %               your learned neural network. You should set p to a 
@@ -19,15 +20,26 @@ p = zeros(size(X, 1), 1);
 %       function can also return the index of the max element, for more
 %       information see 'help max'. If your examples are in rows, then, you
 %       can use max(A, [], 2) to obtain the max for each row.
-%
+%p = m*1 matrix
+%Theta1 = 25 * 401
+%Theta2 = 10 * 26
+%X = 5000 * 401
+%z2 = 25*401 * 401*5000 = 25*5000
+z2 = Theta1 * X';
+%Getting first hidden layer
+a2 = sigmoid(z2);
+%Adding the bias unit - have to add the bais unit a2 = 26*5000
+a2 = [ones(1,size(a2,2)); a2];
+%z3 = 10*26 * 26*5000 = 10*5000
+z3 = Theta2 * a2;
+%Last hypothesis = h(X) a3=5000*10 - each row is the probability of each one
+a3 = sigmoid(z3');
+size(a3)
+% Get the 
+[probability,location] = max(a3, [], 2);
+p = location;
 
-
-
-
-
-
-
-
+size(p)
 
 % =========================================================================
 

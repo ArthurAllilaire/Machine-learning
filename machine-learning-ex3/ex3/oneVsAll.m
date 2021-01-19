@@ -47,8 +47,19 @@ X = [ones(m, 1) X];
 %     [theta] = ...
 %         fmincg (@(t)(lrCostFunction(t, X, (y == c), lambda)), ...
 %                 initial_theta, options);
-%
-
+%all_theta = number_of_classes * n (when include 1's)
+% Just need to train each theta row independently, then merge them together
+for i = 1:num_labels,
+% Set Initial theta
+  initial_theta = zeros(n + 1, 1);
+% Set options for fminunc
+  options = optimset('GradObj', 'on', 'MaxIter', 50);
+% This function will return theta and the cost 
+  [theta] = fmincg (@(t)(lrCostFunction(t, X, (y == i), lambda)), ...
+                initial_theta, options);
+%assigning the theta values to the all_theta
+  all_theta(i,:) = theta;
+end
 
 
 

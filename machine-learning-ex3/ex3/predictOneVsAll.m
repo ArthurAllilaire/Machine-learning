@@ -28,10 +28,13 @@ X = [ones(m, 1) X];
 %       max element, for more information see 'help max'. If your examples 
 %       are in rows, then, you can use max(A, [], 2) to obtain the max 
 %       for each row.
-%       
-
-
-
+% X = m*n
+% all_theta = k(classes)*n
+% predictions = m*n * n*k = m*k
+% p = m*1
+predictions = sigmoid(X*all_theta');
+[probability,location] = max(predictions, [], 2);
+p = location;
 
 
 
