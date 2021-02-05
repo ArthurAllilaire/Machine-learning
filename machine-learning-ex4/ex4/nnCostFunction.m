@@ -128,18 +128,23 @@ theta_value = (lambda*theta_value)/(2*m);
 J = J + theta_value;
 
 %Backpropogation
+%You need to get the derivative of every example then average them
 %Sizes:
 %z2 = 5000*25
 %a2 = 5000*26
 %a3 = 5000 *10
 %d3 = 5000*10
 %d2 = 5000*25
-%delta 3 calculated m*k - m*k
+%delta 3 calculated m*k - m*k - this is the derivative (how sensitive ) of the cost function
+%over the ouptput layer a(L) - this would be true if we were doing the squared error cost function
+%We are actually doing the log cost function - so the below is the simplified 
 d3 = a3 - real_y;
-d3*Theta2(:,2:end);
-%Sigmoid gradient of (z2(m*h))
+%Sigmoid gradient of (z2(m*h)) - this is the derivative of a/z of the ouput layer
 SGz2 = sigmoidGradient(z2);
-%Calculating d2 m*k * k*h = m*h
+%d3*theta is the chain rule to get the derivative of cost function / a(L-1)
+% as Theta are the weights(L) (which is the simplified derivative of how sensitive
+% z(L) is to a(l-1)
+%Calculating d2 m*k * k*h = m*h - this is the derivative for every example
 d2 = (d3 * Theta2(:,2:end)).* SGz2;
 %Calculateing Delta1 (capital) h*m * m*n = h*n
 Delta1 = d2' * X;
